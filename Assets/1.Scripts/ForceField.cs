@@ -2,18 +2,19 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Rendering.PostProcessing;
 public class ForceField : MonoBehaviour
 {
     public float shrinkWaitTime, shrinkAmount, shrinkDuration, minShrinkAmount, lastShrinkTime, targetDiameter, lastDmgTime, dmgCooldown;
     public int playerDamage;
     public bool shrinking;
-
+    //public PostProcessVolume postProcess;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        //postProcess.enabled = false;
         lastShrinkTime = Time.time;
         targetDiameter = transform.localScale.x;
 
@@ -64,12 +65,15 @@ public class ForceField : MonoBehaviour
 
             foreach(PlayerController player in GameManager.instance.players)
             {
+                //postProcess.enabled = false;
+
                 if (player.isDead || !player) {
                     continue;
                 }
                 if (Vector3.Distance(transform.position,player.transform.position) >= transform.localScale.x)
                 {
                     player.photonView.RPC("takeDamage", player.photonPlayer, 0, playerDamage);
+                    //postProcess.enabled = true;
                 }
             }
         }

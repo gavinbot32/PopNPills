@@ -2,9 +2,6 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Timeline;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour

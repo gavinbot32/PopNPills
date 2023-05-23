@@ -15,9 +15,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        if(instance == null)
+        {
+            instance = this;
+        }
+        if (instance != this)
+        {
+            Destroy(this.gameObject);
+        }
 
+        DontDestroyOnLoad(instance);
+        
 
     }
 
@@ -65,6 +73,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Application.Quit();
     }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        GameManager.instance.playersAlive--;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameManager.instance.checkWinCondition();
+        }
+    }
+
 
 
     [PunRPC]
