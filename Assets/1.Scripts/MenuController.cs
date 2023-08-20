@@ -60,6 +60,18 @@ public class MenuController : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
 
 
+    private void Awake()
+    {
+        if (PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.LeaveRoom();
+            PhotonNetwork.LeaveLobby();
+
+            //PhotonNetwork.CurrentRoom.IsVisible = true;
+            //PhotonNetwork.CurrentRoom.IsOpen = true;
+
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -73,12 +85,7 @@ public class MenuController : MonoBehaviourPunCallbacks, ILobbyCallbacks
         hourGlass.SetActive(!PhotonNetwork.IsConnected);
         toast_message.gameObject.SetActive(!PhotonNetwork.IsConnected);
 
-        if (PhotonNetwork.InRoom)
-        {
-            PhotonNetwork.CurrentRoom.IsVisible = true;
-            PhotonNetwork.CurrentRoom.IsOpen = true;
-
-        }
+        
 
     }
 

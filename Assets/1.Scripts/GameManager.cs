@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviourPun
 
     void backToMenu()
     {
+        Destroy(NetworkManager.instance);
         NetworkManager.instance.changeScenes("Menu");
     }
 

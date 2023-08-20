@@ -15,14 +15,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
 
-        if(instance == null)
+        PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+
+        foreach(PhotonView view in photonViews)
         {
-            instance = this;
+            if(view.ViewID == 999)
+            {
+                if(view.gameObject != this.gameObject)
+                {
+                    Destroy(this.gameObject);
+                }
+            }
         }
-        if (instance != this)
-        {
-            Destroy(this.gameObject);
-        }
+
+        
+        instance = this;
+       
+       
 
         DontDestroyOnLoad(instance);
         
